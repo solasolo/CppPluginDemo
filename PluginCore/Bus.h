@@ -22,6 +22,7 @@ class _declspec(dllexport) Bus : public BaseBus
 private:
 	typename TypeObjectPool Pool;
 
+
 public:
 	Bus();
 	virtual ~Bus();
@@ -29,7 +30,6 @@ public:
 	T& Get(const char* name);
 	void Register(const char* name, T* obj);
 };
-
 
 template<class T>
 Bus<T>::Bus()
@@ -76,7 +76,7 @@ class PluginRegister
 };		
 
 #define BusInstance(T)	\
-	((Bus<T>*)(BusManager::Instance()->Get(#T)))
+	((Bus<T>*)(BusManager::Instance().Get(#T)))
 
 // 放在插件cpp文件里，防止重复定义
 #define REGIST_PLUGIN(class_name)		\

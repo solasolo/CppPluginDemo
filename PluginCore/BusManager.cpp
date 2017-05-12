@@ -2,30 +2,18 @@
 
 #include <typeinfo.h>
 
-BusManager* BusManager::_Instance = NULL;
+//BusManager* BusManager::_Instance = NULL;
 
-BusManager* BusManager::Instance()
+BusManager& BusManager::Instance()
 {
-	if (!_Instance)
-	{
-		_Instance = new BusManager();
-	}
-
-	return _Instance;
-}
-
-void BusManager::Release()
-{
-	if (_Instance)
-	{
-		delete _Instance;
-	}
+	static BusManager instance;
+	
+	return instance;
 }
 
 BusManager::BusManager()
 {
 }
-
 
 BusManager::~BusManager()
 {

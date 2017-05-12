@@ -29,8 +29,6 @@ int main()
 
 	std::cout << "Program End" << std::endl;
 
-	BusManager::Release();
-
 	return 0;
 }
 

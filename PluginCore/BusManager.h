@@ -9,16 +9,13 @@
  class _declspec(dllexport) BusManager
 {
 private:
-	static BusManager* _Instance;
-
 	BusManager();
 	std::map<std::string, BaseBus*> BusPool;
 
 public:
 	~BusManager();
 
-	static BusManager* Instance();
-	static void Release();	// 单例对象无法自动释放
+	static BusManager& Instance();
 
 	void* Get(const char* name);
 	void Regist(const char* name, BaseBus* bus);
@@ -30,6 +27,6 @@ public:
  public:
 	 BusRegister(char* name)
 	 {
-		 BusManager::Instance()->Regist(name, new Bus<T>);
+		 BusManager::Instance().Regist(name, new Bus<T>);
 	 }
  };
