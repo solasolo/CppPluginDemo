@@ -14,6 +14,14 @@ BusManager* BusManager::Instance()
 	return _Instance;
 }
 
+void BusManager::Release()
+{
+	if (_Instance)
+	{
+		delete _Instance;
+	}
+}
+
 BusManager::BusManager()
 {
 }
@@ -21,6 +29,10 @@ BusManager::BusManager()
 
 BusManager::~BusManager()
 {
+	for (std::map<std::string, BaseBus*>::iterator iter = this->BusPool.begin(); iter != this->BusPool.end(); iter++)
+	{
+		delete iter->second;
+	}
 }
 
 void* BusManager::Get(const char* name)
@@ -35,7 +47,7 @@ void* BusManager::Get(const char* name)
 	}
 }
 
-void BusManager::Regist(const char* name, void* bus)
+void BusManager::Regist(const char* name, BaseBus* bus)
 {
 	this->BusPool[name] = bus;
 }

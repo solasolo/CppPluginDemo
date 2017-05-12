@@ -12,15 +12,16 @@ private:
 	static BusManager* _Instance;
 
 	BusManager();
-	std::map<std::string, void*> BusPool;
+	std::map<std::string, BaseBus*> BusPool;
 
 public:
 	~BusManager();
 
 	static BusManager* Instance();
+	static void Release();	// 单例对象无法自动释放
 
 	void* Get(const char* name);
-	void Regist(const char* name, void* bus);
+	void Regist(const char* name, BaseBus* bus);
  };
 
  template<class T>

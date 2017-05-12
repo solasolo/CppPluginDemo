@@ -6,8 +6,16 @@
 #include <stdio.h>
 #include <string>
 
+// 这个类的存在，只是为了可以在BusManager里调用析构函数
+class _declspec(dllexport) BaseBus
+{
+public:
+	BaseBus() {};
+	virtual ~BaseBus() {};
+};
+
 template<class T>
-class Bus
+class _declspec(dllexport) Bus : public BaseBus
 {
 	typedef std::map<std::string, T*> TypeObjectPool; 
 
@@ -16,7 +24,7 @@ private:
 
 public:
 	Bus();
-	~Bus();
+	virtual ~Bus();
 
 	T& Get(const char* name);
 	void Register(const char* name, T* obj);
