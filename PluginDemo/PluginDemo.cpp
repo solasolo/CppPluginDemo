@@ -4,9 +4,11 @@
 #include "stdafx.h"
 #include <iostream>
 #include <stdio.h>
+#include <Windows.h>
 
 #include "Bus.h"
 #include "BasePlugin.h"
+#include "BusManager.h"
 
 // 这里是很白痴的部分:
 // 可以不用包含可能用到的所有插件头文件
@@ -15,10 +17,13 @@
 
 int main()
 {
+	// 加载 Plugin Dll
+	HMODULE hm = LoadLibrary(L"Plugins.dll");
+
 	std::cout << "Program Start" << std::endl;
 
-	BusInstance(BasePlugin).Get("PluginA").Hello();
-	BusInstance(BasePlugin).Get("PluginB").Hello();
+	BusInstance(BasePlugin)->Get("PluginA").Hello();
+	BusInstance(BasePlugin)->Get("PluginB").Hello();
 
 	getchar();
 

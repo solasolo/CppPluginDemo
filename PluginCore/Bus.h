@@ -4,11 +4,12 @@
 
 #include "Singleton.h"
 #include <stdio.h>
+#include <string>
 
 template<class T>
 class Bus
 {
-	typedef std::map<const char*, T*> TypeObjectPool; 
+	typedef std::map<std::string, T*> TypeObjectPool; 
 
 private:
 	typename TypeObjectPool Pool;
@@ -67,9 +68,11 @@ class PluginRegister
 };		
 
 #define BusInstance(T)	\
-	Singleton< Bus<T> >::instance()
+	((Bus<T>*)(BusManager::Instance()->Get(#T)))
 
 // 放在插件cpp文件里，防止重复定义
 #define REGIST_PLUGIN(class_name)		\
    PluginRegister<class_name> _##class_name##register_(#class_name); 
 
+#define REGIST_BUS(class_name)		\
+   BusRegister<class_name> _bus##_##class_name##register_(#class_name); 
